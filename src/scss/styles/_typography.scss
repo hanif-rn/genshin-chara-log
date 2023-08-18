@@ -1,0 +1,91 @@
+@use "../util";
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 500;
+  line-height: 1.1;
+  margin-top: 10;
+  font-family: util.$font;
+}
+
+h1 {
+  // font-size: 7.5vw; // (i.e 7.5% of viewport width)
+  // font-size: calc(16px + 2vw); // (i.e always at least 16px + 2% viewport width)
+  // font-size: clamp(28px, 16px + 2vw, 42px); // clamp(min, preferred, max)
+  // font-size: clamp(1.75rem, 1rem + 2vw, 2.5rem); // REM (relative to default settings)
+  font-size: clamp(
+    util.rem(28),
+    util.rem(16) + 2vw,
+    util.rem(42)
+  ); // uses rem function from ../util/_functions
+  // @include util.breakpoint("mobile"){ // uses media breakpoint
+  // font-size: 36px;
+}
+
+h2 {
+  font-size: clamp(
+    util.rem(20),
+    util.rem(15) + 1.5vw,
+    util.rem(32)
+  ); // clamp(min, preferred, max)
+}
+
+p,
+swal2-html-container,
+li,
+span {
+  font-size: 1rem;
+  font-weight: 300;
+  margin-top: 0;
+  font-family: util.$font;
+  font-size: auto;
+}
+
+a,
+a:visited,
+a:active {
+  text-decoration: none;
+}
+
+.app {
+  color: black;
+}
+
+button {
+  font-family: util.$font;
+}
+
+.search input {
+  font-size: 1.11rem;
+  font-family: util.$font;
+  font-weight: 500;
+
+  color: var(--prime-error-text);
+  background: var(--primary);
+  &::placeholder {
+    color: #bebebe;
+  }
+}
+
+.card div:nth-of-type(3) span {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  font-weight: 500;
+}
+
+.card div:nth-of-type(3) h3 {
+  margin-top: 5px;
+  opacity: 2;
+}
+
+.card div:nth-of-type(1) {
+  opacity: 0;
+  color: var(--secondary-text);
+}
+
+.card div:nth-of-type(1) p {
+  font-size: 0.7rem;
+}

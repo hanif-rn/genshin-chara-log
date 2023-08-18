@@ -1,0 +1,28 @@
+@use 'functions' as f;
+// 700px (mobile), 900px (tablet), 1440px (smaller monitors)
+// divide px by 16 to get em
+$breakpoints-up: (
+    "mobile": f.em(700),
+    "tablet": f.em(900),
+    "monitor": f.em(1440),
+);
+
+$breakpoints-down:( //.02 difference with up breakpoints
+    "small": f.em(699.98),
+    "medium": f.em(899.98),
+    "large": f.em(1439.98),
+);
+
+@mixin breakpoint($size){
+    @media (min-width: map-get($breakpoints-up, $size)){
+        @content;
+    }
+}
+
+@mixin breakpoint-down($size){
+    @media (max-width: map-get($breakpoints-down, $size)){
+        @content;
+    }
+}
+
+// due to cascades make sure pixel sizes are in order otherwise it will override previous rules
