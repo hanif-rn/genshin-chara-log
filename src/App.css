@@ -115,8 +115,8 @@ h1 {
 }
 
 .movie {
-  width: 310px;
-  height: 460px;
+  width: 20rem;
+  height: 20rem;
   margin: 1.5rem;
 
   position: relative;
