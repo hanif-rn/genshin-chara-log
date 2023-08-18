@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import SearchIcon from "./search.svg";
-import "./App.css";
-
-const API_URL = "https://genshin-db-api.vercel.app/api/characters?query=";
+//import "./App.css";
+import "./dist/mystyles.css";
+import CharacterCard from "./CharacterCard";
 
 function App() {
   const [characterDetails, setCharacterDetails] = useState([]);
@@ -63,13 +63,11 @@ function App() {
           }
         });
 
-        // Execute promises for character details retrieval
         Promise.all(characterDetailsPromises)
           .then((responses) =>
             Promise.all(responses.map((response) => response.json()))
           )
           .then((details) => {
-            // Set character details in state
             setCharacterDetails(details);
           })
           .catch((error) => {
@@ -132,7 +130,7 @@ function App() {
 
         <div className="search">
           <input
-            placeholder="Search for a character"
+            placeholder="Search"
             value={searchTerm}
             onChange={(e) => {
               setSearchTerm(e.target.value);
@@ -147,28 +145,7 @@ function App() {
         </div>
 
         <div className="container">
-          {characterDetails.map((item) => (
-            <div className="card" key={item.name}>
-              <div>
-                <p>Element: {item.element}</p>
-                <p>Weapon: {item.weapontype}</p>
-                <p>
-                  Rarity:{" "}
-                  {Array.from({ length: item.rarity }, () => "✯").join("")}
-                </p>
-                <p>
-                  Region: {item.region} ~ {item.affiliation}
-                </p>
-              </div>
-              <div>
-                <img src={item.images?.icon} alt={item.name} />
-              </div>
-              <div>
-                <span>{item.constellation}</span>
-                <h3>{item.name}</h3>
-              </div>
-            </div>
-          ))}
+          <CharacterCard characterDetails={characterDetails} />
         </div>
       </div>
     </div>
