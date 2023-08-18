@@ -38,6 +38,7 @@ main {
   max-width: 75rem;
   background-color: var(--primary);
   border-radius: 1rem;
+  min-height: 100rem;
 
   display: flex;
   justify-content: center;
@@ -72,8 +73,8 @@ main {
 }
 
 .card {
-  width: 12.5rem;
-  height: 12.5rem;
+  width: 12rem;
+  height: 12rem;
   margin: 1rem;
 
   background-color: var(--secondary);
