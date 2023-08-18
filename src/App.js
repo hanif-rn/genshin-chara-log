@@ -1,81 +1,178 @@
-import { useEffect } from "react";
-import "./App.css";
+import React, { useState, useEffect } from "react";
 import SearchIcon from "./search.svg";
-import CharacterCard from "./CharacterCard";
-import { useState } from "react";
+import "./App.css";
 
 const API_URL = "https://genshin-db-api.vercel.app/api/characters?query=";
 
-const character1 = {
-  name: "Chongyun",
-  title: "Frozen Ardor",
-  rarity: "4",
-  element: "Cryo",
-  images: {
-    icon: "https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Chongyun.png",
-  },
-};
+function App() {
+  const [characterDetails, setCharacterDetails] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
-const character2 = {
-  name: "Xingqiu",
-  title: "Juvenile Galant",
-  element: "Hydro",
-  images: {
-    icon: "https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Xingqiu.png",
-  },
-};
+  function fetchAll() {
+    const characterNamesUrl =
+      "https://genshin-db-api.vercel.app/api/characters?query=names&matchCategories=true";
+    fetch(characterNamesUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        const characterDetailsPromises = [];
+        console.log(data);
 
-const character3 = {
-  name: "Xiangling",
-  title: "Exquisite Delicacy",
-  element: "Pyro",
-  images: {
-    icon: "https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Xiangling.png",
-  },
-};
+        // Filter and fetch details for characters with required fields
+        data.forEach((character) => {
+          const characterDetailUrl = `https://genshin-db-api.vercel.app/api/characters?query=${character}`;
+          characterDetailsPromises.push(fetch(characterDetailUrl));
+        });
 
-const character4 = {
-  name: "Bennett",
-  title: "Trial by Fire",
-  element: "Pyro",
-  images: {
-    icon: "https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Bennett.png",
-  },
-};
-
-const charactersz = [character1, character2, character3, character4];
-
-const App = () => {
-  const [characters, setCharacters] = useState([]);
+        // Execute promises for character details retrieval
+        Promise.all(characterDetailsPromises)
+          .then((responses) =>
+            Promise.all(responses.map((response) => response.json()))
+          )
+          .then((details) => {
+            // Set character details in state
+            setCharacterDetails(details);
+          })
+          .catch((error) => {
+            console.error("Error fetching character details:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error fetching character names:", error);
+      });
+  }
 
   const searchCharacters = async (name) => {
-    const response = await fetch(`${API_URL}${name}`);
-    const data = await response.json();
-    console.log(data);
+    if (name === "") {
+      fetchAll();
+      return;
+    }
+
+    const characterNamesUrl =
+      "https://genshin-db-api.vercel.app/api/characters?query=names&matchCategories=true";
+    fetch(characterNamesUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        const characterDetailsPromises = [];
+        console.log(data);
+
+        // Filter and fetch details for characters with required fields
+        data.forEach((character) => {
+          if (character.toLowerCase().startsWith(name.toLowerCase())) {
+            const characterDetailUrl = `https://genshin-db-api.vercel.app/api/characters?query=${character}`;
+            characterDetailsPromises.push(fetch(characterDetailUrl));
+          }
+        });
+
+        // Execute promises for character details retrieval
+        Promise.all(characterDetailsPromises)
+          .then((responses) =>
+            Promise.all(responses.map((response) => response.json()))
+          )
+          .then((details) => {
+            // Set character details in state
+            setCharacterDetails(details);
+          })
+          .catch((error) => {
+            console.error("Error fetching character details:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error fetching character names:", error);
+      });
   };
 
   useEffect(() => {
-    searchCharacters("Bennett");
-  }, []);
+    // Fetch character names along with their details
+    const characterNamesUrl =
+      "https://genshin-db-api.vercel.app/api/characters?query=names&matchCategories=true";
+    fetch(characterNamesUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        const characterDetailsPromises = [];
+        console.log(data);
+
+        // Filter and fetch details for characters with required fields
+        data.forEach((character) => {
+          const characterDetailUrl = `https://genshin-db-api.vercel.app/api/characters?query=${character}`;
+          characterDetailsPromises.push(fetch(characterDetailUrl));
+        });
+
+        // Execute promises for character details retrieval
+        Promise.all(characterDetailsPromises)
+          .then((responses) =>
+            Promise.all(responses.map((response) => response.json()))
+          )
+          .then((details) => {
+            // Set character details in state
+            setCharacterDetails(details);
+          })
+          .catch((error) => {
+            console.error("Error fetching character details:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error fetching character names:", error);
+      });
+  }, []); // Empty dependency array to ensure the effect runs once
+
+  let searchTimeout;
+
+  const handleSearch = (value) => {
+    clearTimeout(searchTimeout);
+
+    searchTimeout = setTimeout(() => {
+      searchCharacters(value);
+    }, 0); // 1 second delay
+  };
 
   return (
-    <div className="app">
-      <h1>Genshin Impact Character Catalog</h1>
+    <div>
+      <div className="app">
+        <h1>Genshin Impact Character Catalog</h1>
 
-      <div className="search">
-        <input
-          placeholder="Search for a character"
-          value="Traveler"
-          onChange={() => {}}
-        />
-        <img src={SearchIcon} alt="search" onClick={() => {}} />
-      </div>
+        <div className="search">
+          <input
+            placeholder="Search for a character"
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              handleSearch(e.target.value);
+            }}
+          />
+          <img
+            src={SearchIcon}
+            alt="search"
+            onClick={() => searchCharacters(searchTerm)}
+          />
+        </div>
 
-      <div className="container">
-        <CharacterCard characters={charactersz} />
+        <div className="container">
+          {characterDetails.map((item) => (
+            <div className="card" key={item.name}>
+              <div>
+                <p>Element: {item.element}</p>
+                <p>Weapon: {item.weapontype}</p>
+                <p>
+                  Rarity:{" "}
+                  {Array.from({ length: item.rarity }, () => "✯").join("")}
+                </p>
+                <p>
+                  Region: {item.region} ~ {item.affiliation}
+                </p>
+              </div>
+              <div>
+                <img src={item.images?.icon} alt={item.name} />
+              </div>
+              <div>
+                <span>{item.constellation}</span>
+                <h3>{item.name}</h3>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
-};
+}
 
 export default App;
