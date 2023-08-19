@@ -31,22 +31,19 @@ main {
 .container {
   width: auto;
   max-width: 80%;
-  margin-top: 1rem;
+  margin-top: 2rem;
   padding-top: 1rem;
   margin-left: auto;
   margin-right: auto;
   max-width: 75rem;
   background-color: var(--primary);
   border-radius: 1rem;
-  min-height: 20rem;
+  min-height: 100rem;
 
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-}
-
-.flexible {
-  display: flex;
 }
 
 .search {
@@ -63,17 +60,15 @@ main {
 
   padding: 0.5rem 0.5rem;
   border-radius: 1rem;
-  outline: auto;
-  background: var(--prime-variant);
-  outline-style: auto;
+  background: var(--primary);
 }
 .search input {
   max-width: 100%;
   width: auto;
   flex: 1;
   border: none;
-  background: var(--prime-variant);
   padding-right: 1rem;
+
   outline: none;
 }
 

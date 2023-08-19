@@ -63,6 +63,7 @@ button {
   font-weight: 500;
 
   color: var(--prime-error-text);
+  background: var(--primary);
   &::placeholder {
     color: #bebebe;
   }
@@ -88,8 +89,4 @@ button {
 
 .card div:nth-of-type(1) p {
   font-size: 0.7rem;
-}
-
-.container {
-  color: var(--prime-error-text);
 }

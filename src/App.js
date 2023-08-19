@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import SearchIcon from "./search.svg";
 //import "./App.css";
 import "./dist/mystyles.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CharacterCard from "./CharacterCard";
-import TalentsPage from "./TalentsPage";
 
 function App() {
   const [characterDetails, setCharacterDetails] = useState([]);
@@ -130,37 +128,24 @@ function App() {
       <div className="app">
         <h1>Genshin Impact Character Catalog</h1>
 
+        <div className="search">
+          <input
+            placeholder="Search"
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              handleSearch(e.target.value);
+            }}
+          />
+          <img
+            src={SearchIcon}
+            alt="search"
+            onClick={() => searchCharacters(searchTerm)}
+          />
+        </div>
+
         <div className="container">
-          <Router>
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <>
-                    <div className="search">
-                      <input
-                        placeholder="Search"
-                        value={searchTerm}
-                        onChange={(e) => {
-                          setSearchTerm(e.target.value);
-                          handleSearch(e.target.value);
-                        }}
-                      />
-                      <img
-                        src={SearchIcon}
-                        alt="search"
-                        onClick={() => searchCharacters(searchTerm)}
-                      />
-                    </div>
-                    <div className="container flexible">
-                      <CharacterCard characterDetails={characterDetails} />
-                    </div>
-                  </>
-                }
-              />
-              <Route path="/talents.html" element={<TalentsPage />} />
-            </Routes>
-          </Router>
+          <CharacterCard characterDetails={characterDetails} />
         </div>
       </div>
     </div>
