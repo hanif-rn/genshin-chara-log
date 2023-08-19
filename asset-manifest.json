@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/genshin-chara-log/static/css/main.724cd7f0.css",
-    "main.js": "/genshin-chara-log/static/js/main.41e3166d.js",
+    "main.css": "/genshin-chara-log/static/css/main.3b0a2372.css",
+    "main.js": "/genshin-chara-log/static/js/main.88cc4eb7.js",
     "index.html": "/genshin-chara-log/index.html",
     "static/media/search.svg": "/genshin-chara-log/static/media/search.db964b809d21320fb503cb05f4dc8a09.svg",
-    "main.724cd7f0.css.map": "/genshin-chara-log/static/css/main.724cd7f0.css.map",
-    "main.41e3166d.js.map": "/genshin-chara-log/static/js/main.41e3166d.js.map"
+    "main.3b0a2372.css.map": "/genshin-chara-log/static/css/main.3b0a2372.css.map",
+    "main.88cc4eb7.js.map": "/genshin-chara-log/static/js/main.88cc4eb7.js.map"
   },
   "entrypoints": [
-    "static/css/main.724cd7f0.css",
-    "static/js/main.41e3166d.js"
+    "static/css/main.3b0a2372.css",
+    "static/js/main.88cc4eb7.js"
   ]
 }
