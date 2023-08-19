@@ -29,18 +29,21 @@ main {
 .container {
   width: auto;
   max-width: 80%;
-  margin-top: 2rem;
+  margin-top: 1rem;
   padding-top: 1rem;
   margin-left: auto;
   margin-right: auto;
   max-width: 75rem;
   background-color: var(--primary);
   border-radius: 1rem;
-  min-height: 100rem;
-  display: flex;
+  min-height: 20rem;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+}
+
+.flexible {
+  display: flex;
 }
 
 .search {
@@ -54,7 +57,9 @@ main {
   justify-content: center;
   padding: 0.5rem 0.5rem;
   border-radius: 1rem;
-  background: var(--primary);
+  outline: auto;
+  background: var(--prime-variant);
+  outline-style: auto;
 }
 
 .search input {
@@ -62,6 +67,7 @@ main {
   width: auto;
   flex: 1;
   border: none;
+  background: var(--prime-variant);
   padding-right: 1rem;
   outline: none;
 }
@@ -182,6 +188,23 @@ body {
     max-width: 7.5rem;
   }
 }
+.talent-head {
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: auto;
+  display: flex;
+}
+.talent-head h1 {
+  align-self: flex-end;
+  margin-top: auto;
+  margin-bottom: 0;
+}
+.talent-head img {
+  width: 5rem;
+  height: 5rem;
+}
+
 h1,
 h2,
 h3,
@@ -230,7 +253,6 @@ button {
   font-family: "Signika", sans-serif;
   font-weight: 500;
   color: var(--prime-error-text);
-  background: var(--primary);
 }
 .search input::-moz-placeholder {
   color: #bebebe;
@@ -259,6 +281,10 @@ button {
 
 .card div:nth-of-type(1) p {
   font-size: 0.7rem;
+}
+
+.container {
+  color: var(--prime-error-text);
 }
 
 :root {
