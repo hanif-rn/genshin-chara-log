@@ -16,7 +16,7 @@ h1 {
   // font-size: clamp(28px, 16px + 2vw, 42px); // clamp(min, preferred, max)
   // font-size: clamp(1.75rem, 1rem + 2vw, 2.5rem); // REM (relative to default settings)
   font-size: clamp(
-    util.rem(28),
+    util.rem(20),
     util.rem(16) + 2vw,
     util.rem(42)
   ); // uses rem function from ../util/_functions
@@ -63,7 +63,7 @@ button {
   font-weight: 500;
 
   color: var(--prime-error-text);
-  background: var(--primary);
+  background: var(--prime-variant);
   &::placeholder {
     color: #bebebe;
   }
@@ -89,4 +89,31 @@ button {
 
 .card div:nth-of-type(1) p {
   font-size: 0.7rem;
+}
+
+.talent-head {
+  color: var(--prime-error-text);
+  margin-top: 0rem;
+  margin-bottom: 1rem;
+
+  h1 {
+    align-self: flex-end; /* Align h1 to the bottom */
+    margin: 0; /* Reset margin for h1 */
+  }
+}
+
+.taldeets {
+  overflow: scrollable;
+  @include util.breakpoint(tablet) {
+    text-align: left;
+  }
+}
+
+.talcard {
+  h3 {
+    font-size: clamp(util.rem(9), util.rem(10) + 1vw, util.rem(16));
+  }
+  p {
+    font-size: clamp(util.rem(8), util.rem(9) + 1vw, util.rem(11));
+  }
 }

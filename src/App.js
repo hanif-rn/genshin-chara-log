@@ -1,12 +1,25 @@
 import React, { useState, useEffect } from "react";
 import SearchIcon from "./search.svg";
-//import "./App.css";
 import "./dist/mystyles.css";
 import CharacterCard from "./CharacterCard";
+import TalentsPage from "./TalentsPage";
 
 function App() {
   const [characterDetails, setCharacterDetails] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const [currentPage, setCurrentPage] = useState("home");
+  const [selectedCharacter, setSelectedCharacter] = useState(null);
+
+  const navigateToTalents = (characterName) => {
+    setSelectedCharacter(characterName);
+    setCurrentPage("talents");
+  };
+
+  const navigateToHomePage = () => {
+    setSelectedCharacter(null);
+    setCurrentPage("home");
+  };
 
   function fetchAll() {
     const characterNamesUrl =
@@ -15,7 +28,6 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         const characterDetailsPromises = [];
-        console.log(data);
 
         // Filter and fetch details for characters with required fields
         data.forEach((character) => {
@@ -53,7 +65,6 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         const characterDetailsPromises = [];
-        console.log(data);
 
         // Filter and fetch details for characters with required fields
         data.forEach((character) => {
@@ -87,7 +98,6 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         const characterDetailsPromises = [];
-        console.log(data);
 
         // Filter and fetch details for characters with required fields
         data.forEach((character) => {
@@ -128,24 +138,39 @@ function App() {
       <div className="app">
         <h1>Genshin Impact Character Catalog</h1>
 
-        <div className="search">
-          <input
-            placeholder="Search"
-            value={searchTerm}
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-              handleSearch(e.target.value);
-            }}
-          />
-          <img
-            src={SearchIcon}
-            alt="search"
-            onClick={() => searchCharacters(searchTerm)}
-          />
-        </div>
-
         <div className="container">
-          <CharacterCard characterDetails={characterDetails} />
+          {currentPage === "home" && (
+            <>
+              <div className="search">
+                <input
+                  placeholder="Search"
+                  value={searchTerm}
+                  onChange={(e) => {
+                    setSearchTerm(e.target.value);
+                    handleSearch(e.target.value);
+                  }}
+                />
+                <img
+                  src={SearchIcon}
+                  alt="search"
+                  onClick={() => searchCharacters(searchTerm)}
+                />
+              </div>
+              <div className="ccc">
+                <CharacterCard
+                  characterDetails={characterDetails}
+                  navigateToTalents={navigateToTalents}
+                />
+              </div>
+            </>
+          )}
+
+          {currentPage === "talents" && (
+            <TalentsPage
+              characterName={selectedCharacter}
+              navigateToHome={navigateToHomePage}
+            />
+          )}
         </div>
       </div>
     </div>

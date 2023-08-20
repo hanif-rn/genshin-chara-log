@@ -1,6 +1,6 @@
 import React from "react";
 
-const CharacterCard = ({ characterDetails }) => {
+const CharacterCard = ({ characterDetails, navigateToTalents }) => {
   return (
     <>
       {characterDetails.map((item) => (
@@ -9,8 +9,7 @@ const CharacterCard = ({ characterDetails }) => {
             <p>Element: {item.element}</p>
             <p>Weapon: {item.weapontype}</p>
             <p>
-              Rarity:{" "}
-              {Array.from({ length: item.rarity }, () => "✯").join("")}
+              Rarity: {Array.from({ length: item.rarity }, () => "✯").join("")}
             </p>
             <p>
               Region: {item.region} ~ {item.affiliation}
@@ -19,7 +18,7 @@ const CharacterCard = ({ characterDetails }) => {
           <div>
             <img src={item.images?.icon} alt={item.name} />
           </div>
-          <div>
+          <div onClick={() => navigateToTalents(item.name)}>
             <span>{item.constellation}</span>
             <h3>{item.name}</h3>
           </div>
