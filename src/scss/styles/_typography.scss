@@ -111,9 +111,24 @@ button {
 
 .talcard {
   h3 {
-    font-size: clamp(util.rem(9), util.rem(10) + 1vw, util.rem(16));
+    font-size: clamp(util.rem(10), util.rem(14) + 1vw, util.rem(16));
   }
   p {
-    font-size: clamp(util.rem(8), util.rem(9) + 1vw, util.rem(11));
+    font-size: clamp(util.rem(7), util.rem(10) + 1vw, util.rem(12));
+  }
+}
+
+.concard {
+  h3 {
+    font-size: 0.5rem;
+    @include util.breakpoint-down(medium) {
+      font-size: 0.66rem;
+    }
+  }
+  p {
+    font-size: 0.33rem;
+    @include util.breakpoint-down(medium) {
+      font-size: 0.5rem;
+    }
   }
 }

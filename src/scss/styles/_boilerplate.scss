@@ -208,9 +208,13 @@ body {
   justify-content: center;
   margin: 2rem;
   border-radius: 1rem;
+  margin-right: auto;
+  margin-left: auto;
+
   h2 {
     color: var(--prime-error-text);
   }
+  max-width: 90%;
 }
 .tcc-in {
   background-color: var(--prime-variant);
@@ -224,8 +228,15 @@ body {
   display: block;
   @include util.breakpoint(tablet) {
     display: flex;
+    flex-wrap: wrap;
   }
 }
+
+.concardcon {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .talent-head {
   display: flex;
   align-items: center;
@@ -233,20 +244,61 @@ body {
 }
 
 .talcard {
-  width: 100%;
+  max-width: 80%;
+  min-height: 10rem;
+  max-height: 10rem;
   overflow-y: scroll;
-  overflow-x: scroll;
+
+  @include util.breakpoint(tablet) {
+    max-width: 40%;
+    max-height: 10rem;
+    overflow-y: hidden;
+  }
+  @include util.breakpoint(monitor) {
+    max-width: 30%;
+  }
+  position: relative;
+  border-radius: 12px;
+  border: none;
+
+  transition: all 1.5s cubic-bezier(0.175, 0.885, 0, 1);
+  box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
+
+  background-color: var(--secondary);
+  width: 100%;
+  margin: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  display: block;
+  justify-content: center;
+  padding-top: 1rem;
+  @include util.breakpoint(tablet) {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem;
+  }
+}
+
+.concard {
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: auto;
 
   position: relative;
   border-radius: 12px;
   border: none;
-  height: 15rem;
+  height: 6rem;
 
   transition: all 1.5s cubic-bezier(0.175, 0.885, 0, 1);
   box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
 
   background-color: var(--secondary);
   @include util.breakpoint(tablet) {
+    width: 40%;
+    height: 15rem;
+  }
+  @include util.breakpoint(monitor) {
     width: 30%;
     height: 15rem;
   }
@@ -255,7 +307,7 @@ body {
   margin-right: auto;
   display: block;
   justify-content: center;
-  padding: 1rem;
+  padding: 0rem;
   padding-top: 1rem;
 }
 .talent-img {
@@ -281,9 +333,10 @@ body {
   width: 5rem; /* Minimum width */
   height: 5rem; /* Minimum height */
 }
-.taltext {
-  overflow-y: scroll;
-  overflow-x: scroll;
+.taltext,
+context {
+  overflow-y: auto;
+  overflow-x: auto;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
@@ -333,4 +386,87 @@ th {
 
 tr:nth-child(even) {
   background-color: #f2f2f2;
+}
+
+.concard {
+  width: 10rem;
+  height: 10rem;
+  overflow-y: auto;
+  overflow-x: auto;
+
+  position: relative;
+  border-radius: 12px;
+  border: none;
+
+  transition: all 1.5s cubic-bezier(0.175, 0.885, 0, 1);
+  box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
+  align-items: normal;
+
+  background-color: var(--secondary);
+  @include util.breakpoint(mobile) {
+    align-items: center;
+  }
+  @include util.breakpoint(tablet) {
+    width: 8rem;
+    height: 8rem;
+  }
+  @include util.breakpoint(monitor) {
+    width: 7rem;
+    height: 7rem;
+  }
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  @include util.breakpoint-down(small) {
+    width: 7rem;
+    height: 7rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  @include util.breakpoint-down(medium) {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  display: flex;
+  justify-content: center;
+  padding: 0rem;
+}
+
+.concard div:nth-of-type(2) {
+  visibility: hidden;
+}
+.concard:hover {
+  transform: scale(2, 2);
+  @include util.breakpoint(tablet) {
+    transform: scale(3, 3);
+  }
+}
+
+.concard div:nth-of-type(1) img {
+  height: 100%;
+  width: auto;
+  max-height: 100%;
+}
+
+.concard div:nth-of-type(2) {
+  z-index: 2;
+
+  position: absolute;
+
+  color: #343739;
+}
+
+.concard:hover div:nth-of-type(1) {
+  opacity: 0.1;
+}
+
+.concard:hover div:nth-of-type(2) {
+  z-index: 7;
+  visibility: visible;
+  color: #343739;
+}
+
+.context {
+  padding: 0.5rem;
 }

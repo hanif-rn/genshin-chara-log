@@ -1,11 +1,18 @@
 import React from "react";
 
 const Talent = ({ characterTalents, talent }) => {
-  console.log(characterTalents);
-
   const formatBoldText = (text) => {
     return text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
   };
+
+  let skillType = "";
+  const lowercaseTalent = talent.toLowerCase();
+
+  if (lowercaseTalent === "combat2") {
+    skillType = "(E) Skill: ";
+  } else if (lowercaseTalent === "combat3") {
+    skillType = "(Q) Burst: ";
+  }
 
   const talentData = characterTalents[talent];
 
@@ -27,7 +34,10 @@ const Talent = ({ characterTalents, talent }) => {
         </div>
         <div className="taltext">
           <div className="taldeets">
-            <h3>{talentData.name}</h3>
+            <h3>
+              {skillType}
+              {talentData.name}
+            </h3>
           </div>
           <div className="taldeets">
             <p

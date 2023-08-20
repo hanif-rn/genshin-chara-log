@@ -1,46 +1,43 @@
 import React from "react";
 
-const Talent = ({ characterTalents, talent }) => {
-  console.log(characterTalents);
+const Constellation = ({ constellation, conno }) => {
+  console.log(constellation);
+
+  const connoCaps = conno.toUpperCase();
 
   const formatBoldText = (text) => {
     return text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
   };
 
-  const talentData = characterTalents[talent];
+  const constellationData = constellation[conno];
 
-  if (!talentData) {
+  if (!constellationData) {
     return null; // Return null to render nothing
   }
 
-  const talentImageUrl = `https://api.ambr.top/assets/UI/${characterTalents.images[talent]}.png`;
-
   return (
     <>
-      <div className="talcard" key={talent}>
+      <div className="concard talcard" key={conno}>
         <div className="talent-img">
           <img
             className="talent-icon"
-            src={talentImageUrl}
-            alt={talentData.name}
+            src={constellation.images[conno]}
+            alt={constellationData.name}
           />
         </div>
-        <div className="taltext">
-          <div className="taldeets">
-            <h3>{talentData.name}</h3>
-          </div>
-          <div className="taldeets">
-            <p
-              dangerouslySetInnerHTML={{
-                __html: formatBoldText(talentData.info),
-              }}
-            />
-            {talentData.description && <p>{talentData.description}</p>}
-          </div>
+        <div className="context">
+          <h3>
+            {connoCaps}. {constellationData.name}
+          </h3>
+          <p
+            dangerouslySetInnerHTML={{
+              __html: formatBoldText(constellationData.effect),
+            }}
+          />
         </div>
       </div>
     </>
   );
 };
 
-export default Talent;
+export default Constellation;

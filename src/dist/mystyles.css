@@ -189,6 +189,9 @@ body {
   justify-content: center;
   margin: 2rem;
   border-radius: 1rem;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 90%;
 }
 .tcc h2 {
   color: var(--prime-error-text);
@@ -208,7 +211,13 @@ body {
 @media (min-width: 56.25em) {
   .tcc-in {
     display: flex;
+    flex-wrap: wrap;
   }
+}
+
+.concardcon {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .talent-head {
@@ -218,13 +227,53 @@ body {
 }
 
 .talcard {
-  width: 100%;
+  max-width: 80%;
+  min-height: 10rem;
+  max-height: 10rem;
   overflow-y: scroll;
-  overflow-x: scroll;
   position: relative;
   border-radius: 12px;
   border: none;
-  height: 15rem;
+  transition: all 1.5s cubic-bezier(0.175, 0.885, 0, 1);
+  box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
+  background-color: var(--secondary);
+  width: 100%;
+  margin: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  display: block;
+  justify-content: center;
+  padding-top: 1rem;
+}
+@media (min-width: 56.25em) {
+  .talcard {
+    max-width: 40%;
+    max-height: 10rem;
+    overflow-y: hidden;
+  }
+}
+@media (min-width: 90em) {
+  .talcard {
+    max-width: 30%;
+  }
+}
+@media (min-width: 56.25em) {
+  .talcard {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem;
+  }
+}
+
+.concard {
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: auto;
+  position: relative;
+  border-radius: 12px;
+  border: none;
+  height: 6rem;
   transition: all 1.5s cubic-bezier(0.175, 0.885, 0, 1);
   box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
   background-color: var(--secondary);
@@ -233,11 +282,17 @@ body {
   margin-right: auto;
   display: block;
   justify-content: center;
-  padding: 1rem;
+  padding: 0rem;
   padding-top: 1rem;
 }
 @media (min-width: 56.25em) {
-  .talcard {
+  .concard {
+    width: 40%;
+    height: 15rem;
+  }
+}
+@media (min-width: 90em) {
+  .concard {
     width: 30%;
     height: 15rem;
   }
@@ -268,9 +323,10 @@ body {
   height: 5rem; /* Minimum height */
 }
 
-.taltext {
-  overflow-y: scroll;
-  overflow-x: scroll;
+.taltext,
+context {
+  overflow-y: auto;
+  overflow-x: auto;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
@@ -322,6 +378,97 @@ th {
 
 tr:nth-child(even) {
   background-color: #f2f2f2;
+}
+
+.concard {
+  width: 10rem;
+  height: 10rem;
+  overflow-y: auto;
+  overflow-x: auto;
+  position: relative;
+  border-radius: 12px;
+  border: none;
+  transition: all 1.5s cubic-bezier(0.175, 0.885, 0, 1);
+  box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
+  align-items: normal;
+  background-color: var(--secondary);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  padding: 0rem;
+}
+@media (min-width: 43.75em) {
+  .concard {
+    align-items: center;
+  }
+}
+@media (min-width: 56.25em) {
+  .concard {
+    width: 8rem;
+    height: 8rem;
+  }
+}
+@media (min-width: 90em) {
+  .concard {
+    width: 7rem;
+    height: 7rem;
+  }
+}
+@media (max-width: 43.74875em) {
+  .concard {
+    width: 7rem;
+    height: 7rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+@media (max-width: 56.24875em) {
+  .concard {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.concard div:nth-of-type(2) {
+  visibility: hidden;
+}
+
+.concard:hover {
+  transform: scale(2, 2);
+}
+@media (min-width: 56.25em) {
+  .concard:hover {
+    transform: scale(3, 3);
+  }
+}
+
+.concard div:nth-of-type(1) img {
+  height: 100%;
+  width: auto;
+  max-height: 100%;
+}
+
+.concard div:nth-of-type(2) {
+  z-index: 2;
+  position: absolute;
+  color: #343739;
+}
+
+.concard:hover div:nth-of-type(1) {
+  opacity: 0.1;
+}
+
+.concard:hover div:nth-of-type(2) {
+  z-index: 7;
+  visibility: visible;
+  color: #343739;
+}
+
+.context {
+  padding: 0.5rem;
 }
 
 h1,
@@ -423,10 +570,27 @@ button {
 }
 
 .talcard h3 {
-  font-size: clamp(0.5625rem, 0.625rem + 1vw, 1rem);
+  font-size: clamp(0.625rem, 0.875rem + 1vw, 1rem);
 }
 .talcard p {
-  font-size: clamp(0.5rem, 0.5625rem + 1vw, 0.6875rem);
+  font-size: clamp(0.4375rem, 0.625rem + 1vw, 0.75rem);
+}
+
+.concard h3 {
+  font-size: 0.5rem;
+}
+@media (max-width: 56.24875em) {
+  .concard h3 {
+    font-size: 0.66rem;
+  }
+}
+.concard p {
+  font-size: 0.33rem;
+}
+@media (max-width: 56.24875em) {
+  .concard p {
+    font-size: 0.5rem;
+  }
 }
 
 :root {
@@ -439,6 +603,31 @@ button {
   --secondary-text: #000000;
   --secondary: #03dac6;
   --second-variant: #018786;
+}
+
+.fivestar-background {
+  background: linear-gradient(45deg, #ffd700, #ffd700 45%, #ffea00 45%, #ffee00 55%, #ffd700 55%);
+  background-size: 200% 200%;
+  animation: shinyGlow 1.5s ease-in-out infinite;
+}
+
+.fourstar-background {
+  background: linear-gradient(45deg, #b365f9, #b365f9 45%, #c37cfb 45%, #d498fc 55%, #b365f9 55%);
+  background-size: 200% 200%;
+  animation: shinyGlow 1.5s ease-in-out infinite;
+  color: var(--prime-error-text);
+}
+
+@keyframes shinyGlow {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -90% 23%;
+  }
+}
+.white-text {
+  color: var(--prime-error-text);
 }
 
 .grid {

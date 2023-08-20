@@ -9,3 +9,41 @@
   --secondary: #03dac6;
   --second-variant: #018786;
 }
+.fivestar-background {
+  background: linear-gradient(
+    45deg,
+    #ffd700,
+    #ffd700 45%,
+    #ffea00 45%,
+    #ffee00 55%,
+    #ffd700 55%
+  );
+  background-size: 200% 200%;
+  animation: shinyGlow 1.5s ease-in-out infinite;
+}
+
+.fourstar-background {
+  background: linear-gradient(
+    45deg,
+    #b365f9,
+    #b365f9 45%,
+    #c37cfb 45%,
+    #d498fc 55%,
+    #b365f9 55%
+  );
+  background-size: 200% 200%;
+  animation: shinyGlow 1.5s ease-in-out infinite;
+  color: var(--prime-error-text);
+}
+
+@keyframes shinyGlow {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -90% 23%;
+  }
+}
+.white-text {
+  color: var(--prime-error-text);
+}

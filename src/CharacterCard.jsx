@@ -3,27 +3,37 @@ import React from "react";
 const CharacterCard = ({ characterDetails, navigateToTalents }) => {
   return (
     <>
-      {characterDetails.map((item) => (
-        <div className="card" key={item.name}>
-          <div>
-            <p>Element: {item.element}</p>
-            <p>Weapon: {item.weapontype}</p>
-            <p>
-              Rarity: {Array.from({ length: item.rarity }, () => "✯").join("")}
-            </p>
-            <p>
-              Region: {item.region} ~ {item.affiliation}
-            </p>
+      {characterDetails.map((item) => {
+        let elementColorClass = "";
+        if (item.rarity.toLowerCase() === "5") {
+          elementColorClass = "fivestar-background";
+        } else {
+          elementColorClass = "fourstar-background";
+        }
+
+        return (
+          <div className={`card ${elementColorClass}`} key={item.name}>
+            <div>
+              <p>Element: {item.element}</p>
+              <p>Weapon: {item.weapontype}</p>
+              <p>
+                Rarity:{" "}
+                {Array.from({ length: item.rarity }, () => "✯").join("")}
+              </p>
+              <p>
+                Region: {item.region} ~ {item.affiliation}
+              </p>
+            </div>
+            <div>
+              <img src={item.images?.icon} alt={item.name} />
+            </div>
+            <div onClick={() => navigateToTalents(item.name)}>
+              <span>{item.constellation}</span>
+              <h3>{item.name}</h3>
+            </div>
           </div>
-          <div>
-            <img src={item.images?.icon} alt={item.name} />
-          </div>
-          <div onClick={() => navigateToTalents(item.name)}>
-            <span>{item.constellation}</span>
-            <h3>{item.name}</h3>
-          </div>
-        </div>
-      ))}
+        );
+      })}
     </>
   );
 };
