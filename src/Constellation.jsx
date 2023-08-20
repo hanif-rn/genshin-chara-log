@@ -1,8 +1,6 @@
 import React from "react";
 
 const Constellation = ({ constellation, conno }) => {
-  console.log(constellation);
-
   const connoCaps = conno.toUpperCase();
 
   const formatBoldText = (text) => {

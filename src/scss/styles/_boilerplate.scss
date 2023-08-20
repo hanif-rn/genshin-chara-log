@@ -124,6 +124,15 @@ main {
   background-color: var(--second-variant);
   padding: 0.2rem 0.1rem 0rem 0.1rem;
 
+  h3 {
+    h3 {
+      font-size: clamp(util.rem(10), util.rem(14) + 1vw, util.rem(16));
+    }
+    span {
+      font-size: clamp(util.rem(7), util.rem(10) + 1vw, util.rem(12));
+    }
+  }
+
   position: absolute;
   bottom: 0;
   right: 0;
@@ -201,6 +210,7 @@ body {
   justify-content: center;
 }
 .tcc {
+  z-index: 5;
   background-color: var(--prime-variant);
   padding: 0rem;
   padding-top: 1.23rem;
@@ -210,11 +220,16 @@ body {
   border-radius: 1rem;
   margin-right: auto;
   margin-left: auto;
+  padding-bottom: 1rem;
 
   h2 {
     color: var(--prime-error-text);
   }
   max-width: 90%;
+
+  @include util.breakpoint-down(small) {
+    max-width: 75%;
+  }
 }
 .tcc-in {
   background-color: var(--prime-variant);
@@ -230,6 +245,10 @@ body {
     display: flex;
     flex-wrap: wrap;
   }
+  @include util.breakpoint-down(small) {
+    padding: 0.5rem;
+    margin: 0.5rem;
+  }
 }
 
 .concardcon {
@@ -241,6 +260,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  h1 {
+    text-shadow: 0.5rem 0.5rem 1rem rgb(0, 0, 0); /* Add a subtle drop shadow */
+  }
 }
 
 .talcard {
@@ -272,6 +294,7 @@ body {
   display: block;
   justify-content: center;
   padding-top: 1rem;
+  padding-bottom: 2rem;
   @include util.breakpoint(tablet) {
     display: flex;
     margin-left: auto;
@@ -361,33 +384,6 @@ button:hover {
   width: clamp(util.rem(66), util.rem(75) + 1vw, util.rem(100));
 }
 
-.att-tabl {
-  display: block;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-  border: 1px solid #ccc;
-  margin-top: 1rem;
-}
-
-th,
-td {
-  border: 1px solid #ccc;
-  padding: 0.3rem; /* Adjust padding for better visual */
-  text-align: center;
-  font-size: 14px; /* Adjust font size as needed */
-}
-
-th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-}
-
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
 .concard {
   width: 10rem;
   height: 10rem;
@@ -469,4 +465,44 @@ tr:nth-child(even) {
 
 .context {
   padding: 0.5rem;
+}
+.splash-art {
+  width: 100%;
+  margin: 0 auto; /* Center the container */
+  position: relative;
+  background-size: cover;
+  background-position: center;
+}
+
+table {
+  margin: auto;
+}
+
+/* Add this SCSS to your existing styles or a separate SCSS file */
+
+table {
+  max-width: 85%;
+  border-collapse: collapse;
+  background-color: transparent;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 2rem;
+  margin-top: 20rem;
+  margin-bottom: 20px;
+
+  @include util.breakpoint-down(small) {
+    max-width: 100%;
+  }
+
+  th,
+  td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white */
+  }
+
+  th {
+    background-color: rgba(0, 0, 0, 0.15); /* Slightly transparent black */
+    font-weight: bold;
+  }
 }

@@ -3,7 +3,9 @@
 h1,
 h2,
 h3,
-h4 {
+h4,
+th,
+td {
   font-weight: 500;
   line-height: 1.1;
   margin-top: 10;
@@ -130,5 +132,12 @@ button {
     @include util.breakpoint-down(medium) {
       font-size: 0.5rem;
     }
+  }
+}
+
+td {
+  font-size: clamp(util.rem(7), util.rem(10) + 1vw, util.rem(16));
+  @include util.breakpoint-down(fold) {
+    font-size: clamp(util.rem(8), util.rem(8) + 1vw, util.rem(15));
   }
 }

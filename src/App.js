@@ -29,19 +29,16 @@ function App() {
       .then((data) => {
         const characterDetailsPromises = [];
 
-        // Filter and fetch details for characters with required fields
         data.forEach((character) => {
           const characterDetailUrl = `https://genshin-db-api.vercel.app/api/characters?query=${character}`;
           characterDetailsPromises.push(fetch(characterDetailUrl));
         });
 
-        // Execute promises for character details retrieval
         Promise.all(characterDetailsPromises)
           .then((responses) =>
             Promise.all(responses.map((response) => response.json()))
           )
           .then((details) => {
-            // Set character details in state
             setCharacterDetails(details);
           })
           .catch((error) => {

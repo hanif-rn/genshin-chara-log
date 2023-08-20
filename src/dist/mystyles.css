@@ -119,6 +119,12 @@ main {
   left: 0;
   color: #f0f0f0;
 }
+.card div:nth-of-type(3) h3 h3 {
+  font-size: clamp(0.625rem, 0.875rem + 1vw, 1rem);
+}
+.card div:nth-of-type(3) h3 span {
+  font-size: clamp(0.4375rem, 0.625rem + 1vw, 0.75rem);
+}
 
 .card:hover div:nth-of-type(2) {
   height: 100%;
@@ -182,6 +188,7 @@ body {
 }
 
 .tcc {
+  z-index: 5;
   background-color: var(--prime-variant);
   padding: 0rem;
   padding-top: 1.23rem;
@@ -191,10 +198,16 @@ body {
   border-radius: 1rem;
   margin-right: auto;
   margin-left: auto;
+  padding-bottom: 1rem;
   max-width: 90%;
 }
 .tcc h2 {
   color: var(--prime-error-text);
+}
+@media (max-width: 43.74875em) {
+  .tcc {
+    max-width: 75%;
+  }
 }
 
 .tcc-in {
@@ -214,6 +227,12 @@ body {
     flex-wrap: wrap;
   }
 }
+@media (max-width: 43.74875em) {
+  .tcc-in {
+    padding: 0.5rem;
+    margin: 0.5rem;
+  }
+}
 
 .concardcon {
   display: flex;
@@ -224,6 +243,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.talent-head h1 {
+  text-shadow: 0.5rem 0.5rem 1rem rgb(0, 0, 0); /* Add a subtle drop shadow */
 }
 
 .talcard {
@@ -244,6 +266,7 @@ body {
   display: block;
   justify-content: center;
   padding-top: 1rem;
+  padding-bottom: 2rem;
 }
 @media (min-width: 56.25em) {
   .talcard {
@@ -352,34 +375,6 @@ button:hover {
   width: clamp(4.125rem, 4.6875rem + 1vw, 6.25rem);
 }
 
-.att-tabl {
-  display: block;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  border: 1px solid #ccc;
-  margin-top: 1rem;
-}
-
-th,
-td {
-  border: 1px solid #ccc;
-  padding: 0.3rem; /* Adjust padding for better visual */
-  text-align: center;
-  font-size: 14px; /* Adjust font size as needed */
-}
-
-th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-}
-
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
 .concard {
   width: 10rem;
   height: 10rem;
@@ -471,10 +466,51 @@ tr:nth-child(even) {
   padding: 0.5rem;
 }
 
+.splash-art {
+  width: 100%;
+  margin: 0 auto; /* Center the container */
+  position: relative;
+  background-size: cover;
+  background-position: center;
+}
+
+table {
+  margin: auto;
+}
+
+/* Add this SCSS to your existing styles or a separate SCSS file */
+table {
+  max-width: 85%;
+  border-collapse: collapse;
+  background-color: transparent;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 2rem;
+  margin-top: 20rem;
+  margin-bottom: 20px;
+}
+@media (max-width: 43.74875em) {
+  table {
+    max-width: 100%;
+  }
+}
+table th,
+table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white */
+}
+table th {
+  background-color: rgba(0, 0, 0, 0.15); /* Slightly transparent black */
+  font-weight: bold;
+}
+
 h1,
 h2,
 h3,
-h4 {
+h4,
+th,
+td {
   font-weight: 500;
   line-height: 1.1;
   margin-top: 10;
@@ -590,6 +626,15 @@ button {
 @media (max-width: 56.24875em) {
   .concard p {
     font-size: 0.5rem;
+  }
+}
+
+td {
+  font-size: clamp(0.4375rem, 0.625rem + 1vw, 1rem);
+}
+@media (max-width: 19.99875em) {
+  td {
+    font-size: clamp(0.5rem, 0.5rem + 1vw, 0.9375rem);
   }
 }
 

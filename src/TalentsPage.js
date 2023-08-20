@@ -3,11 +3,14 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Talent from "./Talent";
 import Constellation from "./Constellation";
+import CharDetails from "./CharDetails";
 
 function TalentsPage({ characterName, navigateToHome }) {
   const [sideIcon, setSideIcon] = useState(null);
+  const [splash, setSplash] = useState(null);
   const [talentData, setTalentData] = useState([]);
   const [consData, setConsData] = useState([]);
+  const [detailData, setDetailData] = useState([]);
 
   function fetchIcon(characterName) {
     const dataUrl = `https://genshin-db-api.vercel.app/api/characters?query=${characterName}`;
@@ -16,6 +19,12 @@ function TalentsPage({ characterName, navigateToHome }) {
       .then((response) => response.json())
       .then((data) => {
         setSideIcon(data.images.sideicon);
+        setSplash(
+          "https://api.ambr.top/assets/UI/" +
+            data.images.namegachasplash +
+            ".png"
+        );
+        setDetailData(data);
       })
       .catch((error) => {
         console.error("Error fetching character side icon:", error);
@@ -23,7 +32,16 @@ function TalentsPage({ characterName, navigateToHome }) {
   }
 
   function fetchTalent(characterName) {
-    const dataUrl = `https://genshin-db-api.vercel.app/api/talents?query=${characterName}`;
+    let modifiedCharacterName = characterName.toLowerCase();
+
+    if (
+      modifiedCharacterName === "aether" ||
+      modifiedCharacterName === "lumine"
+    ) {
+      modifiedCharacterName = "travelerhydro";
+    }
+
+    const dataUrl = `https://genshin-db-api.vercel.app/api/talents?query=${modifiedCharacterName}`;
 
     fetch(dataUrl)
       .then((response) => response.json())
@@ -66,12 +84,17 @@ function TalentsPage({ characterName, navigateToHome }) {
 
   return (
     <div>
-      <button onClick={navigateToHome}>Back to Home</button>
-      <div className="talent-head">
-        <img src={sideIcon} alt={characterName} className="char-icon" />
-        <h1>{characterName}</h1>
+      <div
+        className="tcc splash-art"
+        style={{ backgroundImage: `url(${splash})` }}
+      >
+        <div className="talent-head">
+          <img src={sideIcon} alt={characterName} className="char-icon" />
+          <h1>{characterName}</h1>
+        </div>
+        <CharDetails detailData={detailData} />
       </div>
-      <div className="tcc">
+      <div className="tcc" id="top-tcc">
         <h2>COMBAT</h2>
         <div className="tcc-in">
           {combatTalents.map((talent) => (
