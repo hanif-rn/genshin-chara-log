@@ -154,10 +154,13 @@ function App() {
                 />
               </div>
               <div className="ccc">
-                <CharacterCard
-                  characterDetails={characterDetails}
-                  navigateToTalents={navigateToTalents}
-                />
+                {characterDetails.map((characterDetail) => (
+                  <CharacterCard
+                    key={characterDetail.name}
+                    characterDetail={characterDetail}
+                    navigateToTalents={navigateToTalents}
+                  />
+                ))}
               </div>
             </>
           )}
