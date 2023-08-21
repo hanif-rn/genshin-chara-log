@@ -1,9 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import Talent from "./Talent";
-import Constellation from "./Constellation";
-import CharDetails from "./CharDetails";
+import Talent from "./components/Talent";
+import Constellation from "./components/Constellation";
+import CharDetails from "./components/CharDetails";
 
 function TalentsPage({ characterName, navigateToHome }) {
   const [sideIcon, setSideIcon] = useState(null);
@@ -12,6 +12,8 @@ function TalentsPage({ characterName, navigateToHome }) {
   const [consData, setConsData] = useState([]);
   const [detailData, setDetailData] = useState([]);
 
+  let modifiedCharacterName = characterName.toLowerCase();
+
   function fetchIcon(characterName) {
     const dataUrl = `https://genshin-db-api.vercel.app/api/characters?query=${characterName}`;
 
@@ -19,11 +21,21 @@ function TalentsPage({ characterName, navigateToHome }) {
       .then((response) => response.json())
       .then((data) => {
         setSideIcon(data.images.sideicon);
+
         setSplash(
           "https://api.ambr.top/assets/UI/" +
             data.images.namegachasplash +
             ".png"
         );
+        if (data.name == "Aether") {
+          setSplash(
+            "https://api.ambr.top/assets/UI/UI_Gacha_AvatarImg_PlayerBoy.png"
+          );
+        } else if (data.name == "Lumine") {
+          setSplash(
+            "https://api.ambr.top/assets/UI/UI_Gacha_AvatarImg_PlayerGirl.png"
+          );
+        }
         setDetailData(data);
       })
       .catch((error) => {
@@ -32,15 +44,6 @@ function TalentsPage({ characterName, navigateToHome }) {
   }
 
   function fetchTalent(characterName) {
-    let modifiedCharacterName = characterName.toLowerCase();
-
-    if (
-      modifiedCharacterName === "aether" ||
-      modifiedCharacterName === "lumine"
-    ) {
-      modifiedCharacterName = "travelerhydro";
-    }
-
     const dataUrl = `https://genshin-db-api.vercel.app/api/talents?query=${modifiedCharacterName}`;
 
     fetch(dataUrl)
@@ -54,7 +57,7 @@ function TalentsPage({ characterName, navigateToHome }) {
   }
 
   function fetchCons(characterName) {
-    const dataUrl = `https://genshin-db-api.vercel.app/api/constellations?query=${characterName}`;
+    const dataUrl = `https://genshin-db-api.vercel.app/api/constellations?query=${modifiedCharacterName}`;
 
     fetch(dataUrl)
       .then((response) => response.json())
@@ -67,9 +70,20 @@ function TalentsPage({ characterName, navigateToHome }) {
   }
 
   useEffect(() => {
+    if (
+      modifiedCharacterName === "aether" ||
+      modifiedCharacterName === "lumine"
+    ) {
+      modifiedCharacterName = prompt("Choose a Traveler Element!");
+      if (modifiedCharacterName == null) {
+        modifiedCharacterName = "traveleranemo";
+      } else {
+        modifiedCharacterName = modifiedCharacterName.toLowerCase();
+      }
+    }
     fetchIcon(characterName);
-    fetchTalent(characterName);
-    fetchCons(characterName);
+    fetchTalent(modifiedCharacterName);
+    fetchCons(modifiedCharacterName);
   }, [characterName]);
 
   const combatTalents = ["combat1", "combat2", "combat3"];

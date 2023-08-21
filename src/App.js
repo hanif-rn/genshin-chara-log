@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SearchIcon from "./search.svg";
 import "./dist/mystyles.css";
-import CharacterCard from "./CharacterCard";
+import CharacterCard from "./components/CharacterCard";
 import TalentsPage from "./TalentsPage";
 
 function App() {
