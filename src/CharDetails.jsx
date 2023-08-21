@@ -1,12 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const CharDetails = (detailData) => {
   const detailedData = detailData.detailData;
   return (
     <div>
-      {console.log(detailedData)}
-
-      {console.log(detailedData.name)}
       <table>
         <tbody>
           <tr>
@@ -53,6 +51,20 @@ const CharDetails = (detailData) => {
       </table>
     </div>
   );
+};
+
+CharDetails.propTypes = {
+  detailData: PropTypes.shape({
+    name: PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    rarity: PropTypes.string,
+    element: PropTypes.string,
+    weapontype: PropTypes.string,
+    gender: PropTypes.string,
+    birthday: PropTypes.string,
+    constellation: PropTypes.string,
+  }),
 };
 
 export default CharDetails;

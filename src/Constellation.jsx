@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const Constellation = ({ constellation, conno }) => {
   const connoCaps = conno.toUpperCase();
@@ -36,6 +37,11 @@ const Constellation = ({ constellation, conno }) => {
       </div>
     </>
   );
+};
+
+Constellation.propTypes = {
+  constellation: PropTypes.arrayOf(PropTypes.string),
+  conno: PropTypes.string,
 };
 
 export default Constellation;

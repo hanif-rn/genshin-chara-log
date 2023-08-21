@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const CharacterCard = ({ characterDetails, navigateToTalents }) => {
   return (
@@ -36,6 +37,24 @@ const CharacterCard = ({ characterDetails, navigateToTalents }) => {
       })}
     </>
   );
+};
+
+CharacterCard.propTypes = {
+  characterDetails: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      rarity: PropTypes.string,
+      element: PropTypes.string,
+      weapontype: PropTypes.string,
+      region: PropTypes.string,
+      affiliation: PropTypes.string,
+      images: PropTypes.shape({
+        icon: PropTypes.string,
+      }),
+      constellation: PropTypes.string,
+    })
+  ),
+  navigateToTalents: PropTypes.func,
 };
 
 export default CharacterCard;

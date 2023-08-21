@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const Talent = ({ characterTalents, talent }) => {
   const formatBoldText = (text) => {
@@ -51,6 +52,13 @@ const Talent = ({ characterTalents, talent }) => {
       </div>
     </>
   );
+};
+
+Talent.propTypes = {
+  characterTalents: PropTypes.shape({
+    images: PropTypes.objectOf(PropTypes.string),
+  }).isRequired,
+  talent: PropTypes.string.isRequired,
 };
 
 export default Talent;
