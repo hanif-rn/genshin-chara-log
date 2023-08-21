@@ -17,6 +17,8 @@ function App() {
   };
 
   const navigateToHomePage = () => {
+    window.scrollTo(0, 0);
+
     setSelectedCharacter(null);
     setCurrentPage("home");
   };

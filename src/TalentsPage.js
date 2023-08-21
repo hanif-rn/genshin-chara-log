@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Talent from "./components/Talent";
 import Constellation from "./components/Constellation";
 import CharDetails from "./components/CharDetails";
+import Swal from "sweetalert2";
 
 function TalentsPage({ characterName, navigateToHome }) {
   const [sideIcon, setSideIcon] = useState(null);
@@ -27,11 +28,11 @@ function TalentsPage({ characterName, navigateToHome }) {
             data.images.namegachasplash +
             ".png"
         );
-        if (data.name == "Aether") {
+        if (data.name === "Aether") {
           setSplash(
             "https://api.ambr.top/assets/UI/UI_Gacha_AvatarImg_PlayerBoy.png"
           );
-        } else if (data.name == "Lumine") {
+        } else if (data.name === "Lumine") {
           setSplash(
             "https://api.ambr.top/assets/UI/UI_Gacha_AvatarImg_PlayerGirl.png"
           );
@@ -70,13 +71,34 @@ function TalentsPage({ characterName, navigateToHome }) {
   }
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (
       modifiedCharacterName === "aether" ||
       modifiedCharacterName === "lumine"
     ) {
-      modifiedCharacterName = prompt("Choose a Traveler Element!");
-      if (modifiedCharacterName == null) {
+      modifiedCharacterName = prompt(
+        "Choose a Traveler Element! [Hydro, Dendro, Electro, Anemo, Geo]"
+      );
+      if (modifiedCharacterName == null || modifiedCharacterName === "") {
         modifiedCharacterName = "traveleranemo";
+        Swal.fire({
+          icon: "error",
+          title: "ERROR",
+          text: "No element chosen; automatically redirecting to Traveler (Anemo)",
+          confirmButtonText: "OK",
+        });
+      } else if (
+        ["hydro", "dendro", "electro", "anemo", "geo"].indexOf(
+          modifiedCharacterName
+        ) === -1
+      ) {
+        modifiedCharacterName = "traveleranemo";
+        Swal.fire({
+          icon: "error",
+          title: "ERROR",
+          text: "Invalid Traveler element chosen; automatically redirecting to Traveler (Anemo)",
+          confirmButtonText: "OK",
+        });
       } else {
         modifiedCharacterName = modifiedCharacterName.toLowerCase();
       }

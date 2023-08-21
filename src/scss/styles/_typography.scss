@@ -5,11 +5,16 @@ h2,
 h3,
 h4,
 th,
-td {
+td,
+span {
   font-weight: 500;
   line-height: 1.1;
   margin-top: 10;
   font-family: util.$font;
+}
+
+* {
+  font-family: util.$font !important;
 }
 
 h1 {
