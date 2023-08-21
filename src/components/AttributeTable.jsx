@@ -1,69 +1,90 @@
 import React from "react";
+import { useState } from "react";
 
 const AttributeTable = ({ attributes }) => {
-  console.log(attributes);
+  const [headersFormat, setHeadersFormat] = useState(""); // State for managing header formatting
 
   const headers = attributes.labels.map((label, index) => {
     const labelText = label.split("|")[0].trim();
     const paramCount = label.split("{param").length - 1;
-    const repeatedHeaders = Array.from({ length: paramCount }, (_, i) => (
-      <th key={index + i}>
-        {i + 1 > 1 ? `${labelText} (${i + 1})` : labelText}
-      </th>
-    ));
+    let formatting = "";
+    let labelcopy = label;
+    const regexPattern = /{param\d+.*?}/g;
+    const matchedStrings = label.match(regexPattern);
+    //console.log(matchedStrings);
+
+    const repeatedHeaders = matchedStrings.map((matchedString, i) => {
+      let formatting = "int";
+
+      if (matchedString.includes("{param") && matchedString.includes("P}")) {
+        formatting = "percent";
+      } else {
+        formatting = "";
+      }
+
+      const key = `${index}-${i}`;
+      return (
+        <th key={key} className={formatting}>
+          {i + 1 > 1 ? `${labelText} (${i + 1})` : labelText}
+        </th>
+      );
+    });
+
     return repeatedHeaders;
   });
 
   headers.unshift(<th key="level-header">Level</th>);
 
-  const rows = Object.keys(attributes.parameters).map((paramKey, index) => {
-    return attributes.parameters[paramKey].map((value, valueIndex) => (
-      <td key={valueIndex}>
-        {Number(value) % 1 !== 0 ? value.toFixed(4) : value}
-      </td>
-    ));
-  });
+  const numRows = attributes.parameters.param1.length; // Assuming all paramX arrays have the same length
+  const bodyRows = Array.from({ length: numRows }, (_, rowIndex) => {
+    const cells = attributes.labels.map((label, colIndex) => {
+      const paramNameMatches = label.match(/{param\d+/g); // Get all parameter references in the label
+      if (paramNameMatches) {
+        const values = paramNameMatches.map((paramNameMatch) => {
+          const paramIndex = parseInt(paramNameMatch.match(/\d+/)[0], 10);
+          const paramKey = `param${paramIndex}`;
 
-  const transposedRows = rows[0].map((_, rowIndex) => {
-    const rowData = rows.map((row) => {
-      const cellValue = row[rowIndex].props.children.toString().trim();
-      const paramValues = cellValue
-        .split("|")
-        .map((paramValue) => paramValue.trim());
+          if (
+            attributes.parameters[paramKey] &&
+            attributes.parameters[paramKey][rowIndex] !== undefined
+          ) {
+            return attributes.parameters[paramKey][rowIndex];
+          } else {
+            return "-";
+          }
+        });
 
-      if (paramValues.length > 1) {
-        const formattedValues = paramValues.map((paramValue) => {
-          const valueParts = paramValue.split("+");
-          const formattedParts = valueParts.map((part) => {
-            return Number(part.trim()) % 1 !== 0
-              ? Number(part.trim()).toFixed(4)
-              : part.trim();
-          });
-          return formattedParts.join(" + ");
+        const key = `${rowIndex}-${colIndex}`;
+        return values.map((value, i) => {
+          let headerClass = "";
+          if (headers[colIndex + 1]) {
+            if (headers[colIndex + 1][i]) {
+              if (headers[colIndex + 1][i].props) {
+                if (headers[colIndex + 1][i].props.className.toString()) {
+                  headerClass = headers[colIndex + 1][i].props.className;
+                  console.log(headers[colIndex + 1][i]);
+                }
+              }
+            }
+            const formattedValue =
+              headerClass === "percent"
+                ? `${(value * 100).toFixed(1)}%`
+                : value % 1 === 0
+                ? value.toFixed(0)
+                : value.toFixed(1);
+
+            return <td key={`${key}-${i}`}>{formattedValue}</td>;
+          }
         });
-        return formattedValues.join(" | ");
-      } else if (cellValue.includes("+")) {
-        // If the cellValue has multiple values separated by '+'
-        const valueParts = cellValue.split("+");
-        const formattedParts = valueParts.map((part) => {
-          return Number(part.trim()) % 1 !== 0
-            ? Number(part.trim()).toFixed(4)
-            : part.trim();
-        });
-        return formattedParts.join(" + ");
       } else {
-        return Number(cellValue) % 1 !== 0
-          ? Number(cellValue).toFixed(4)
-          : cellValue;
+        const key = `${rowIndex}-${colIndex}`;
+        return <td key={key}>{label}</td>;
       }
     });
 
     return (
       <tr key={rowIndex}>
-        <td>{rowIndex + 1}</td> {/* Index (row number) */}
-        {rowData.map((cellValue, colIndex) => (
-          <td key={colIndex + 1}>{cellValue}</td>
-        ))}
+        {[<td key={`${rowIndex}-level`}>{rowIndex + 1}</td>, ...cells]}
       </tr>
     );
   });
@@ -74,7 +95,7 @@ const AttributeTable = ({ attributes }) => {
         <thead>
           <tr>{headers}</tr>
         </thead>
-        <tbody>{transposedRows}</tbody>
+        <tbody>{bodyRows}</tbody>
       </table>
     </div>
   );
