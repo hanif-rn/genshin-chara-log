@@ -1,7 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
+import AttributeTable from "./AttributeTable";
+import { useState } from "react";
 
 const Talent = ({ characterTalents, talent }) => {
+  const [popupVisible, setPopupVisible] = useState(false);
+
+  const togglePopup = () => {
+    setPopupVisible(!popupVisible);
+  };
   const formatBoldText = (text) => {
     return text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
   };
@@ -18,7 +25,7 @@ const Talent = ({ characterTalents, talent }) => {
   const talentData = characterTalents[talent];
 
   if (!talentData) {
-    return null; // Return null to render nothing
+    return null;
   }
 
   const talentImageUrl = `https://api.ambr.top/assets/UI/${characterTalents.images[talent]}.png`;
@@ -26,7 +33,10 @@ const Talent = ({ characterTalents, talent }) => {
   return (
     <>
       <div className="talcard" key={talent}>
-        <div className="talent-img">
+        <div
+          className="talent-img"
+          onClick={talentData.attributes ? togglePopup : null}
+        >
           <img
             className="talent-icon"
             src={talentImageUrl}
@@ -50,6 +60,22 @@ const Talent = ({ characterTalents, talent }) => {
           </div>
         </div>
       </div>
+      {popupVisible && (
+        <div className="popup">
+          <h3>
+            {skillType}
+            {talentData.name} Talent Scaling
+          </h3>
+
+          {talentData.attributes && (
+            <AttributeTable attributes={talentData.attributes} />
+          )}
+          <button onClick={togglePopup}>Close</button>
+        </div>
+      )}
+      {/* {talentData.attributes && (
+        <AttributeTable attributes={talentData.attributes}></AttributeTable>
+      )} */}
     </>
   );
 };

@@ -65,9 +65,14 @@ function App() {
       .then((data) => {
         const characterDetailsPromises = [];
 
-        // Filter and fetch details for characters with required fields
         data.forEach((character) => {
-          if (character.toLowerCase().startsWith(name.toLowerCase())) {
+          const lowercaseCharacter = character.toLowerCase();
+          const lowercaseName = name.toLowerCase();
+
+          if (
+            lowercaseCharacter.startsWith(lowercaseName) ||
+            lowercaseCharacter.includes(` ${lowercaseName}`)
+          ) {
             const characterDetailUrl = `https://genshin-db-api.vercel.app/api/characters?query=${character}`;
             characterDetailsPromises.push(fetch(characterDetailUrl));
           }

@@ -485,7 +485,7 @@ table {
   background-color: transparent;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 2rem;
-  margin-top: 20rem;
+  margin-top: auto;
   margin-bottom: 20px;
 }
 @media (max-width: 43.74875em) {
@@ -505,16 +505,46 @@ table th {
   font-weight: bold;
 }
 
+.bg-over-table {
+  margin-top: 20rem;
+}
+
+.att-tabl {
+  margin: auto;
+  width: 90%;
+  overflow-x: auto;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 75%;
+  max-height: 80vh;
+  overflow-x: auto;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  z-index: 9999;
+}
+
 h1,
 h2,
 h3,
 h4,
 th,
-td {
+td,
+span {
   font-weight: 500;
   line-height: 1.1;
   margin-top: 10;
   font-family: "Signika", sans-serif;
+}
+
+* {
+  font-family: "Signika", sans-serif !important;
 }
 
 h1 {

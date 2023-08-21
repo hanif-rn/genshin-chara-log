@@ -5,7 +5,7 @@ const CharDetails = (detailData) => {
   const detailedData = detailData.detailData;
   return (
     <div>
-      <table>
+      <table className="bg-over-table">
         <tbody>
           <tr>
             <td>Name:</td>

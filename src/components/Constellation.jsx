@@ -11,7 +11,7 @@ const Constellation = ({ constellation, conno }) => {
   const constellationData = constellation[conno];
 
   if (!constellationData) {
-    return null; // Return null to render nothing
+    return null;
   }
 
   return (
